@@ -1,0 +1,119 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serverName": {
+            "required": true,
+            "type": "string"
+        },
+        "databaseName": {
+            "required": true,
+            "type": "string"
+        },
+        "extensionName": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "import"
+            ]
+        },
+        "requestBody": {
+            "description": "Import database parameters.",
+            "properties": {
+                "name": {
+                    "description": "The name of the extension.",
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "Represents the properties of the resource.",
+                    "x-ms-client-flatten": true,
+                    "allOf": [
+                        {
+                            "description": "Export database parameters.",
+                            "properties": {
+                                "administratorLogin": {
+                                    "description": "The name of the SQL administrator.",
+                                    "type": "string"
+                                },
+                                "administratorLoginPassword": {
+                                    "description": "The password of the SQL administrator.",
+                                    "type": "string"
+                                },
+                                "authenticationType": {
+                                    "default": "SQL",
+                                    "description": "The authentication type.",
+                                    "enum": [
+                                        "SQL",
+                                        "ADPassword"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "name": "AuthenticationType"
+                                    }
+                                },
+                                "storageKey": {
+                                    "description": "The storage key to use.  If storage key type is SharedAccessKey, it must be preceded with a \"?.\"",
+                                    "type": "string"
+                                },
+                                "storageKeyType": {
+                                    "description": "The type of the storage key to use.",
+                                    "enum": [
+                                        "StorageAccessKey",
+                                        "SharedAccessKey"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "name": "StorageKeyType"
+                                    }
+                                },
+                                "storageUri": {
+                                    "description": "The storage uri to use.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "storageKeyType",
+                                "storageKey",
+                                "storageUri",
+                                "administratorLogin",
+                                "administratorLoginPassword"
+                            ],
+                            "type": "object"
+                        }
+                    ],
+                    "properties": {
+                        "operationMode": {
+                            "description": "The type of import operation being performed. This is always Import.",
+                            "enum": [
+                                "Import"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "name": "ImportOperationMode"
+                            }
+                        }
+                    },
+                    "required": [
+                        "operationMode"
+                    ]
+                },
+                "type": {
+                    "description": "The type of the extension.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
